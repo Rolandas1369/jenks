@@ -4,13 +4,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh 'pip install -r requirements.txt'
             }
         }
         stage('Test') {
             steps {
-                sh 'pip install -r requirements.txt'
-                sh 'pytest'
+                
+                sh 'pytest --html=report.html --self-contained-html'
             }
         }
         stage('Deploy') {
