@@ -10,9 +10,22 @@ pipeline {
         stage('Test') {
             steps {
                 
-                sh 'pytest --html=report.html --self-contained-html'
+                sh 'pytest --alluredir=/reports'
             }
         }
+        stage('reports') {
+            steps {
+                script {
+                        allure([
+                                includeProperties: false,
+                                jdk: '',
+                                properties: [],
+                                reportBuildPolicy: 'ALWAYS',
+                                results: [[path: 'target/allure-results']]
+                        ])
+                }
+            }
+}
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
