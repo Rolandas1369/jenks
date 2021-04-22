@@ -10,7 +10,7 @@ pipeline {
         stage('Test') {
             steps {
                 
-                sh 'pytest --alluredir=reports/all --json-report-file=reports/all'
+                sh 'pytest --alluredir=reports --json-report-file=reports/all'
             }
         }
         stage('reports') {
